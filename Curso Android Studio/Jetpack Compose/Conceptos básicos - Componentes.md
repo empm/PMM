@@ -1,0 +1,461 @@
+# Jetpack Compose
+## ¿Qué es un componente?
+
+Los **componentes** en Jetpack Compose son las piezas básicas que utilizas para construir la interfaz de usuario (UI). A diferencia de los modificadores, que alteran la apariencia o el comportamiento de los componentes, los componentes son las unidades principales que se muestran en la pantalla. Cada componente es una función anotada con `@Composable`, y es donde declaras cómo se verá una parte de tu interfaz.
+
+Un componente en Jetpack Compose es simplemente una función que genera un fragmento de la UI. Estas funciones están anotadas con `@Composable`, lo que las convierte en funciones especiales que Compose puede manejar para generar la interfaz visual.
+
+
+Ejemplo básico de un componente:  
+
+```Kotlin
+@Composable
+fun MyText() {
+    Text(text = "Hello, Compose!")
+}
+```
+  
+
+Este componente muestra un texto en la pantalla. Es la unidad más simple de una UI en Compose.
+
+  
+
+## **Estructura de un componente**
+
+Los componentes en Compose siguen esta estructura:
+
+1. **Anotación** @Composable: Esta es obligatoria para que Compose reconozca la función como una que construye UI.
+
+2. **Cuerpo de la función**: Aquí defines cuál será el componente, usando otros modificadores si es necesario.
+
+3. **Entrada y salida**: Puedes pasar parámetros a un componente para personalizarlo. También puedes hacer que devuelva resultados, aunque lo común es que modifique la UI.
+
+  
+Ejemplo con parámetro:  
+
+```Kotlin
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello, $name!")
+}
+```
+  
+Aquí, Greeting recibe un parámetro name, lo cual le permite generar un texto personalizado.
+
+  
+
+## **Tipos de componentes en Jetpack Compose**
+ 
+
+### **1. Componentes básicos**
+
+  • Text: Muestra un texto en la pantalla.
+ 
+```Kotlin
+@Composable
+fun MyText() {
+    Text(text = "Hello, Compose!")
+}
+```
+
+![[Pasted image 20241009205008.png]]
+   
+
+• Button: Un botón que puede ser clicado y ejecutar una acción.  
+
+```Kotlin
+@Composable
+fun MyButton(onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        Text("Click me")
+    }
+}
+```
+  
+![[Pasted image 20241009210429.png]]
+  
+
+• Image: Muestra una imagen.  
+
+```Kotlin
+@Composable
+fun MyImage() {
+    Image(
+        painter = painterResource(R.drawable.my_image),
+        contentDescription = "My Image"
+    )
+}
+```
+
+![[Pasted image 20241009210914.png]]
+
+
+• Checkbox: Un componente de casilla de verificación.
+
+```Kotlin 
+@Composable
+fun MyCheckbox(checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Checkbox(
+        checked = checked,
+        onCheckedChange = onCheckedChange
+    )
+}
+```
+
+  
+
+  
+
+### **2. Componentes de disposición (Layouts)**
+
+Estos componentes organizan otros componentes en la pantalla.
+
+• Column: Organiza los componentes verticalmente.
+  
+```Kotlin
+@Composable
+fun MyColumn() {
+    Column {
+        Text("Item 1")
+        Text("Item 2")
+    }
+}
+```
+  
+
+
+• Row: Organiza los componentes horizontalmente.
+  
+```Kotlin
+@Composable
+fun MyRow() {
+    Row {
+        Text("Item A")
+        Text("Item B")
+    }
+}
+```
+  
+ 
+
+• Box: Permite superponer componentes. Útil para manejar componentes apilados.
+  
+```Kotlin
+@Composable
+fun MyBox() {
+    Box {
+        Text("Top Layer")
+        Image(painter = painterResource(R.drawable.my_image), contentDescription = "Background")
+    }
+}
+```
+  
+  
+
+• Spacer: Añade un espacio vacío entre los componentes.
+  
+```Kotlin
+@Composable
+fun MySpacer() {
+    Spacer(modifier = Modifier.height(16.dp))
+}
+```  
+
+  
+
+  
+
+### **3. Componentes interactivos**
+
+Estos son componentes que responden a acciones del usuario, como clics o cambios de estado.
+
+  
+• Button: Un botón que ejecuta una acción cuando es clicado.
+  
+```Kotlin
+@Composable
+fun MyButton() {
+    Button(onClick = { _/* Acción al hacer clic */_ }) {
+        Text("Click me")
+    }
+}
+```
+  
+  
+
+• TextField: Un campo de texto donde el usuario puede ingresar datos.
+
+  ```Kotlin
+@Composable
+fun MyTextField(value: String, onValueChange: (String) -> Unit) {
+    TextField(value = value, onValueChange = onValueChange)
+}
+```
+  
+
+
+• Slider: Un control deslizante que permite ajustar un valor numérico.
+  
+```Kotlin
+@Composable
+fun MySlider(value: Float, onValueChange: (Float) -> Unit) {
+    Slider(value = value, onValueChange = onValueChange)
+}
+```
+  
+
+En Jetpack Compose, los componentes interactivos como el **botón** (Button) y la **casilla de verificación** (Checkbox) ==permiten al usuario realizar acciones o modificar el estado de la interfaz.== Estos componentes comparten argumentos comunes, pero también tienen características particulares. 
+
+Desglosar los **argumentos** que suelen recibir, su **significado** en la sintaxis, y el concepto de Unit.
+
+#### **1. Componentes interactivos: Botón y Checkbox**  
+
+**Botón (Button)** 
+
+El botón permite que el usuario ejecute una acción cuando lo pulsa. 
+  
+```Kotlin
+Button(
+    onClick = { /* Acción */ }, // Función lambda que ejecuta una acción
+    modifier = Modifier.padding(16.dp), // Modificador opcional para ajustar apariencia
+    enabled = true, // Opcional: determina si el botón está habilitado o no
+    colors = ButtonDefaults.buttonColors(), // Personaliza los colores
+    shape = RoundedCornerShape(8.dp) // Da forma al botón
+) {
+    Text("Click me") // Contenido del botón
+}
+```
+
+  
+##### **Argumentos clave de Button:**  
+
+• onClick: Este argumento es obligatorio. Recibe una **lambda** (función anónima) que se ejecuta cuando se pulsa el botón. En la sintaxis de onClick, ves { /* Acción */ }, que representa la acción a ejecutar.
+
+Ejemplo:
+
+```Kotlin
+Button(onClick = { println("Botón clicado") }) { Text("Clic aquí") }
+```
+
+• enabled: Un argumento booleano que indica si el botón está habilitado o deshabilitado. Si es false, el botón no responde a clics. Si es true, el botón está activo y puede ser clicado.
+
+• modifier: Se usa para ajustar las propiedades visuales y de disposición del botón, como tamaño, rellenos, márgenes, etc.
+
+• colors: Personaliza el color del botón (colores de fondo, contenido, etc.).
+
+• shape: Define la forma del botón, como si tiene esquinas redondeadas o bordes rectos.
+  
+
+#### **Checkbox (Checkbox)**
+
+  
+
+El componente **Checkbox** permite al usuario marcar o desmarcar una casilla, controlando un estado booleano. Su sintaxis es la siguiente:
+
+  
+```Kotlin
+Checkbox(
+
+    checked = true, _// Booleano que representa si la casilla está marcada_
+
+    onCheckedChange = { isChecked -> _/* Actualizar estado */_ }, _// Lambda que responde al cambio de estado_
+
+    modifier = Modifier.padding(8.dp) _// Modificador opcional_
+
+)
+```
+  
+
+**Argumentos clave de Checkbox:**
+
+  
+
+• checked: Es un booleano que indica si la casilla está marcada (true) o no (false).
+
+Ejemplo:
+
+  
+```Kotlin
+var isChecked by remember { mutableStateOf(false) }
+
+Checkbox(
+
+    checked = isChecked,
+
+    onCheckedChange = { isChecked = it }
+
+)
+```
+
+  
+
+Aquí, checked refleja el estado de la casilla, y cuando el usuario la marca o desmarca, se actualiza el estado a través de onCheckedChange.
+
+  
+
+• onCheckedChange: Recibe una lambda con un parámetro booleano (isChecked). Esta lambda se ejecuta cuando el usuario marca o desmarca la casilla, y el booleano indica si la casilla quedó marcada o no.
+
+• modifier: Igual que en Button, se utiliza para personalizar la apariencia del Checkbox, ajustando el tamaño, espacio, rellenos, etc.
+
+  
+
+**2. Significado de la sintaxis**
+
+  
+
+**Funciones lambda**
+
+  
+
+Tanto Button como Checkbox usan **funciones lambda** para manejar la interacción. Las lambdas son funciones anónimas (es decir, sin nombre) que puedes definir rápidamente en el lugar donde las necesitas.
+
+  
+
+Por ejemplo:
+
+  
+```
+Button(onClick = { println("Botón clicado") }) { _/* Contenido del botón */_ }
+```
+  
+
+Aquí { println("Botón clicado") } es una lambda que se ejecutará cuando el usuario haga clic en el botón.
+
+  
+
+**Lambda con parámetros**
+
+  
+
+En el caso de Checkbox, la lambda en onCheckedChange tiene un parámetro:
+
+  
+```
+Checkbox(
+
+    checked = true,
+
+    onCheckedChange = { isChecked -> println("¿Está marcado? $isChecked") }
+
+)
+```
+  
+
+En este ejemplo, isChecked es el parámetro que recibe la lambda. Cuando el estado de la casilla cambia, isChecked contendrá el nuevo valor (true o false).
+
+  
+
+**Sintaxis () -> Unit**
+
+  
+
+Este tipo de sintaxis define funciones que no reciben parámetros (()) y no devuelven ningún valor significativo (Unit). Es común en eventos como el clic de un botón o el cambio de estado en un Checkbox.
+
+  
+
+Por ejemplo:
+
+  
+```
+onClick: () -> Unit
+```
+  
+
+Significa que onClick es una función que no toma argumentos y no devuelve nada. Solo ejecuta la acción que definas dentro.
+
+  
+
+**3. ¿Qué es Unit?**
+
+  
+
+En Kotlin, Unit es equivalente a void en otros lenguajes como Java o C. Indica que una función no devuelve ningún valor relevante. Aunque todas las funciones en Kotlin técnicamente devuelven algo, si no devuelven un valor específico, devuelven Unit.
+
+  
+
+Ejemplo:
+
+  
+```
+fun doSomething(): Unit {
+
+    println("Haciendo algo...")
+
+}
+```
+  
+
+En este caso, doSomething no devuelve ningún valor, solo ejecuta la acción. El tipo Unit se puede omitir en la declaración de la función, ya que es el valor por defecto en Kotlin cuando no hay un valor de retorno.
+
+  
+
+En lambdas, cuando ves () -> Unit, significa que la función no tiene parámetros (()) y no devuelve nada relevante (Unit). Esto es común en eventos como onClick o onCheckedChange, donde la importancia radica en la acción que ocurre, no en lo que devuelve la función.
+
+  
+
+**Resumen de los componentes interactivos:**
+
+  
+
+• Button y Checkbox son componentes interactivos que permiten al usuario ejecutar acciones.
+
+• Ambos usan **lambdas** para manejar eventos, como clics o cambios de estado.
+
+• Unit en Kotlin indica que una función no devuelve ningún valor relevante, lo que se usa frecuentemente en eventos donde solo interesa ejecutar acciones.
+
+• Los argumentos clave, como onClick en Button y onCheckedChange en Checkbox, utilizan lambdas para manejar la interacción del usuario y definir qué sucede cuando ocurre una acción.
+
+  
+
+¿Te gustaría más ejemplos o profundizar en alguno de estos conceptos?
+  
+
+  
+
+## **¿Cuándo y por qué usar componentes?**
+
+Debes usar componentes cuando quieras representar una parte de la interfaz de usuario. Al ser funciones, los componentes son modulares y reutilizables, lo que significa que puedes combinarlos y anidarlos para construir UIs complejas de manera eficiente.
+
+**Por qué son importantes:**
+
+• **Declarativos**: Al definir qué debe mostrarse, no tienes que preocuparte por cómo se dibuja.
+• **Reutilizables**: Puedes crear componentes genéricos y utilizarlos en varias partes de tu app.
+• **Composición jerárquica**: Los componentes pueden incluir otros componentes, lo que permite crear layouts anidados.
+
+  
+
+## **Encadenamiento de componentes**  
+
+Al igual que los modificadores, los componentes pueden anidarse para crear UIs más complejas. Por ejemplo, puedes combinar un Column con varios Text y Button dentro:
+
+  
+```Kotlin
+@Composable
+fun MyScreen() {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Welcome to the app!")
+        Button(onClick = { /* Acción */ }) {
+            Text("Get Started")
+        }
+        Text("Some more info here.")
+    }
+}
+```
+  
+En este caso:  
+
+• Se organiza la UI de manera vertical con Column.
+• Dentro del Column, se muestran dos Text y un Button.
+• También se aplica un relleno de 16 dp a la columna completa.
+
+  
+
+## **Resumen**  
+
+Los **componentes en Jetpack Compose** son la base de la construcción de interfaces de usuario. Pueden ser elementos básicos como texto, botones, imágenes, o disposiciones como filas y columnas que organizan otros componentes. Al ser funciones anotadas con @Composable, se vuelven modulares, flexibles y fáciles de reutilizar.
+
+**Ventajas clave:** 
+
+• **Modularidad**: Cada componente es una unidad independiente.
+• **Declaratividad**: Describes lo que debe mostrarse, no cómo dibujarlo.
+• **Composición**: Puedes combinar componentes para crear layouts complejos y jerárquicos.  
