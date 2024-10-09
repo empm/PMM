@@ -1,0 +1,27 @@
+Los tipos de datos (clases envolventes)
+	- Numericos
+		- Byte (8 bits)
+		- Short (16 bits)
+		- Int (32 bits)
+		- Long (64 bits)		
+		- Float (32 bits)
+		- Double (64 bits)
+	- Caracteres
+		- Char
+		- String
+	- Booleano
+		- Boolean
+	- Arrays
+		- ArrayT
+	- Colecciones
+		- List
+		- Set
+		- Map
+	- Nullable
+		- ?
+	- Any
+		- Object
+	- Unit
+		- void
+	- Nothing
+		- Valor no regresado
