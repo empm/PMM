@@ -1,6 +1,6 @@
 Nombre del proyecto + theme
 
-- Para poder aplicar los colores, las formas, tipografía y demás de nuestro proyecto, a #SetContent le indicamos el tema.
+- Para poder aplicar los colores, las formas, tipografía y demás de nuestro proyecto, a ![[SetContent]] le indicamos el tema.
 
 ```Kotlin
 setContent(){  
@@ -10,7 +10,7 @@ setContent(){
 }
 ```
 
-- Ahora ya podemos asignar el color desde nuestro #materialtheme 
+- Ahora ya podemos asignar el color desde nuestro ![[MaterialDesign]]
 
 ```Kotlin
 @Composable  

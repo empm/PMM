@@ -1,4 +1,4 @@
-#modificadores Permiten cambiar la apariencia en cualquier momento de nuestra app
+Permiten cambiar la apariencia en cualquier momento de nuestra app
 
 ```Kotlin
 modifier = Modifier.<propiedad>
@@ -19,7 +19,7 @@ fun MyTexts(){
 }
 ```
 
-- Los #modificadores se pueden concatenar.
+- Los [[Modificadores]] modificadores se pueden concatenar.
   Solo que hay que tener en cuenta con el orden
 ```Kotlin
 @Composable  

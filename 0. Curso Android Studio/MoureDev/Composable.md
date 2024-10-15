@@ -1,10 +1,10 @@
-#composable
+# Composable
 Son los elementos que conforman la interfaz de usuario de la app.
 
-#text es el elemento #composable que sirve para representar texto.
+[[Text()]] es el elemento [[Composable]] que sirve para representar texto.
 
 
-## Ejemplo
+# Ejemplo
 ```Kotlin
 @Composable  
 fun MyComponent(){  
