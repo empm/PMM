@@ -15,7 +15,7 @@ En este codelab, aprenderás lo siguiente:
 - Cómo aplicarle estilos y temas a una app
 
 ---
-## 2. Cómo comenzar un nuevo proyecto en Compose
+# 2. Cómo comenzar un nuevo proyecto en Compose
 
 Cuando elijas la plantilla **Empty Activity**, se generará el siguiente código en tu proyecto:
 
@@ -32,7 +32,7 @@ $ git clone https://github.com/android/codelab-android-compose
 ```
 
 ---
-## 3. Cómo comenzar a usar Compose
+# 3. Cómo comenzar a usar Compose
 ## Funciones de componibilidad
 
 Una **función de componibilidad** es una función normal con una anotación `@Composable`. Esto permite que tu función llame a otras funciones de `@Composable` dentro de ella. Puedes ver cómo la función `Greeting` está marcada como `@Composable`. Esta función producirá una parte de la jerarquía de la IU que mostrará la entrada especificada, `String`. `Text` es una función de componibilidad y que proporciona la biblioteca.
@@ -50,7 +50,7 @@ Para usar la vista previa de Android Studio, solo debes marcar cualquier funció
 ```
 
 ---
-## 4. Cómo ajustar la IU
+# 4. Cómo ajustar la IU
 
 Primero, configura un color de fondo diferente para `Greeting`. Para ello, une el elemento `Text`componible con una `Surface`. `Surface` toma un color, por lo que debes usar **`MaterialTheme.colorScheme.primary`**.
 
@@ -71,9 +71,13 @@ La mayoría de los elementos de la IU de Compose, como `Surface` y `Text`, ac
 Por ejemplo, el modificador `padding` aplicará una cantidad de espacio alrededor del elemento que decora. Puedes crear un modificador de padding con `Modifier.padding()`. También puedes agregar varios modificadores si los encadenas, por lo que, en este caso, podemos agregar el modificador de padding al predeterminado: `modifier.padding(24.dp)`.
 
 ---
-# 5. Cómo reutilizar elementos componibles
+# 5. Cómo reutilizar elementos
 
-Como práctica recomendada, tu función debe **incluir un parámetro modificador** que tenga **asignado un modificador vacío** de forma predeterminada. Reenvía este modificador al primer elemento componible que llames dentro de tu función. De esta manera, el sitio que realiza la llamada puede adaptar las instrucciones de diseño y los comportamientos desde fuera de la función de componibilidad.
+Como práctica recomendada, tu función debe **incluir un parámetro modificador** que tenga **asignado un modificador vacío** de forma predeterminada. De esta manera, el sitio que realiza la llamada puede adaptar las instrucciones de diseño y los comportamientos desde fuera de la función de componibilidad.
+
+> Esto se usa cuando te interesa que cada vez que llames a este componente, tenga un diseño distinto.
+
+> Si tienes un componente botón y quieres reutilizarlo, no sería interesante usar el modificador como parámetro
 
 ```kotlin
 @Composable
